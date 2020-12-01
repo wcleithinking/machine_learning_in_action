@@ -1,13 +1,16 @@
-from numpy import *
+from numpy import linalg as la
+import numpy as np
 import svdRec
 
-myMat = mat(svdRec.loadExData())
-test1 = svdRec.euclidSim(myMat[:,0], myMat[:,4])
-test2 = svdRec.euclidSim(myMat[:,0], myMat[:,0])
-print(test1, test2)
-test1 = svdRec.cosSim(myMat[:,0], myMat[:,4])
-test2 = svdRec.cosSim(myMat[:,0], myMat[:,0])
-print(test1, test2)
-test1 = svdRec.pearsSim(myMat[:,0], myMat[:,4])
-test2 = svdRec.pearsSim(myMat[:,0], myMat[:,0])
-print(test1, test2)
+myMat = np.mat(svdRec.loadExData3())
+# U, Sigma, VT = la.svd(myMat)
+# Sig2 = Sigma ** 2
+# print(sum(Sig2)*0.9)
+# print(sum(Sig2[:2]))
+
+result = svdRec.recommend(myMat, 1, estMethod=svdRec.standEst)
+print(result)
+result = svdRec.recommend(myMat, 1, estMethod=svdRec.svdEst)
+print(result)
+
+svdRec.imgCompress(2)
